@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 25, 2021 at 04:18 PM
--- Server version: 10.4.20-MariaDB
--- PHP Version: 7.3.29
+-- Generation Time: Jul 26, 2021 at 06:27 PM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 7.4.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,73 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_restaurant`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `category`
+--
+
+CREATE TABLE `category` (
+  `cat_id` int(11) NOT NULL,
+  `cat_name` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cat_name_en` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cat_regdate` datetime DEFAULT NULL,
+  `cat_thumbnail` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cat_image` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`cat_id`, `cat_name`, `cat_name_en`, `cat_regdate`, `cat_thumbnail`, `cat_image`) VALUES
+(5, 'category', 'category_en', '2021-07-26 18:31:09', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `delivery`
+--
+
+CREATE TABLE `delivery` (
+  `del_id` int(11) NOT NULL,
+  `del_name` varchar(250) COLLATE utf8mb4_bin DEFAULT NULL,
+  `del_mobile` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `del_pwd` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `del_regdate` datetime DEFAULT NULL,
+  `del_lastdate` datetime DEFAULT NULL,
+  `del_thumbnail` varchar(250) COLLATE utf8mb4_bin DEFAULT NULL,
+  `del_image` varchar(250) COLLATE utf8mb4_bin DEFAULT NULL,
+  `del_note` varchar(1000) COLLATE utf8mb4_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `food`
+--
+
+CREATE TABLE `food` (
+  `foo_id` int(11) NOT NULL,
+  `cat_id` int(11) NOT NULL,
+  `foo_name` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `foo_name_en` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `foo_regdate` datetime DEFAULT NULL,
+  `foo_image` varchar(250) COLLATE utf8_bin DEFAULT NULL,
+  `foo_thumbnail` varchar(250) COLLATE utf8_bin DEFAULT NULL,
+  `foo_price` int(11) DEFAULT NULL,
+  `foo_offer` int(11) DEFAULT NULL,
+  `foo_info` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `foo_info_en` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `food`
+--
+
+INSERT INTO `food` (`foo_id`, `cat_id`, `foo_name`, `foo_name_en`, `foo_regdate`, `foo_image`, `foo_thumbnail`, `foo_price`, `foo_offer`, `foo_info`, `foo_info_en`) VALUES
+(3, 5, 'fffdsf', 'fffdsf', '2021-07-26 19:00:22', '', '', 120, 33, 'rr', 'rr');
 
 -- --------------------------------------------------------
 
@@ -51,6 +118,24 @@ INSERT INTO `users` (`use_id`, `use_name`, `use_mobile`, `use_pwd`, `use_datetim
 --
 
 --
+-- Indexes for table `category`
+--
+ALTER TABLE `category`
+  ADD PRIMARY KEY (`cat_id`);
+
+--
+-- Indexes for table `delivery`
+--
+ALTER TABLE `delivery`
+  ADD PRIMARY KEY (`del_id`);
+
+--
+-- Indexes for table `food`
+--
+ALTER TABLE `food`
+  ADD PRIMARY KEY (`foo_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -61,10 +146,28 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `category`
+--
+ALTER TABLE `category`
+  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `delivery`
+--
+ALTER TABLE `delivery`
+  MODIFY `del_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `food`
+--
+ALTER TABLE `food`
+  MODIFY `foo_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `use_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `use_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
