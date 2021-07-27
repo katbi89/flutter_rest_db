@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 26, 2021 at 06:27 PM
+-- Generation Time: Jul 27, 2021 at 06:50 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.13
 
@@ -20,6 +20,30 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_restaurant`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bill`
+--
+
+CREATE TABLE `bill` (
+  `bil_id` int(11) NOT NULL,
+  `bil_address` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `bil_after_note` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `bil_before_note` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `bil_rate` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cus_id` int(11) DEFAULT NULL,
+  `del_id` int(11) DEFAULT NULL,
+  `bil_regdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `bill`
+--
+
+INSERT INTO `bill` (`bil_id`, `bil_address`, `bil_after_note`, `bil_before_note`, `bil_rate`, `cus_id`, `del_id`, `bil_regdate`) VALUES
+(1, '', NULL, '', NULL, 1, NULL, '2021-07-27 16:46:43');
 
 -- --------------------------------------------------------
 
@@ -41,7 +65,38 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`cat_id`, `cat_name`, `cat_name_en`, `cat_regdate`, `cat_thumbnail`, `cat_image`) VALUES
-(5, 'category', 'category_en', '2021-07-26 18:31:09', '', '');
+(6, 'mshawi', 'mshawi', '2021-07-27 15:46:17', '1270956413185824e15f2640e12a57ef.jpg', '09f69f46a79f6eaff6b0f54f3c6d2eee.jpg'),
+(7, 'kbab', 'kbab', '2021-07-27 15:46:59', '5b1eb2b8de9c6ebf38e502115f3d9362.jpg', 'ed5a05af3cecb961fa1d437be0579a92.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer`
+--
+
+CREATE TABLE `customer` (
+  `cus_id` int(11) NOT NULL,
+  `cus_name` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cus_pwd` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cus_mobile` varchar(250) COLLATE utf8_bin DEFAULT NULL,
+  `cus_email` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cus_regdate` datetime DEFAULT NULL,
+  `cus_block` int(11) DEFAULT NULL,
+  `cus_token` varchar(500) COLLATE utf8_bin DEFAULT NULL,
+  `cus_address` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cus_lan` varchar(150) COLLATE utf8_bin DEFAULT NULL,
+  `cus_lat` varchar(150) COLLATE utf8_bin DEFAULT NULL,
+  `cus_note` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cus_thumbnail` varchar(250) COLLATE utf8_bin DEFAULT NULL,
+  `cus_image` varchar(250) COLLATE utf8_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `customer`
+--
+
+INSERT INTO `customer` (`cus_id`, `cus_name`, `cus_pwd`, `cus_mobile`, `cus_email`, `cus_regdate`, `cus_block`, `cus_token`, `cus_address`, `cus_lan`, `cus_lat`, `cus_note`, `cus_thumbnail`, `cus_image`) VALUES
+(1, 'customer', '12345678', '12345678', 'customer@gmail.com', '2021-07-27 15:31:10', NULL, NULL, NULL, NULL, NULL, NULL, '', '');
 
 -- --------------------------------------------------------
 
@@ -60,6 +115,49 @@ CREATE TABLE `delivery` (
   `del_image` varchar(250) COLLATE utf8mb4_bin DEFAULT NULL,
   `del_note` varchar(1000) COLLATE utf8mb4_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `delivery`
+--
+
+INSERT INTO `delivery` (`del_id`, `del_name`, `del_mobile`, `del_pwd`, `del_regdate`, `del_lastdate`, `del_thumbnail`, `del_image`, `del_note`) VALUES
+(3, 'ahmad', '12345678', '12345678', '2021-07-27 15:47:54', NULL, '', '', 'ahmad malki');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `detail_bill`
+--
+
+CREATE TABLE `detail_bill` (
+  `det_id` int(11) NOT NULL,
+  `foo_id` int(11) NOT NULL,
+  `bil_id` int(11) NOT NULL,
+  `det_qty` int(11) NOT NULL,
+  `det_price` int(11) NOT NULL,
+  `det_regdate` datetime DEFAULT NULL,
+  `det_note` varchar(1000) COLLATE utf8mb4_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `detail_bill`
+--
+
+INSERT INTO `detail_bill` (`det_id`, `foo_id`, `bil_id`, `det_qty`, `det_price`, `det_regdate`, `det_note`) VALUES
+(1, 4, 1, 2, 150, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `favorite`
+--
+
+CREATE TABLE `favorite` (
+  `fav_id` int(11) NOT NULL,
+  `foo_id` int(11) NOT NULL,
+  `cus_id` int(11) NOT NULL,
+  `fav_regdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -86,7 +184,7 @@ CREATE TABLE `food` (
 --
 
 INSERT INTO `food` (`foo_id`, `cat_id`, `foo_name`, `foo_name_en`, `foo_regdate`, `foo_image`, `foo_thumbnail`, `foo_price`, `foo_offer`, `foo_info`, `foo_info_en`) VALUES
-(3, 5, 'fffdsf', 'fffdsf', '2021-07-26 19:00:22', '', '', 120, 33, 'rr', 'rr');
+(4, 6, 'koko', 'koko', '2021-07-27 15:54:20', 'a3c990cdfa62dd9d49e33df531b71137.jpg', '638a148b4d2445155476e0667a82f146.jpg', 150, 50, 'no', 'no');
 
 -- --------------------------------------------------------
 
@@ -118,16 +216,40 @@ INSERT INTO `users` (`use_id`, `use_name`, `use_mobile`, `use_pwd`, `use_datetim
 --
 
 --
+-- Indexes for table `bill`
+--
+ALTER TABLE `bill`
+  ADD PRIMARY KEY (`bil_id`);
+
+--
 -- Indexes for table `category`
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`cat_id`);
 
 --
+-- Indexes for table `customer`
+--
+ALTER TABLE `customer`
+  ADD PRIMARY KEY (`cus_id`);
+
+--
 -- Indexes for table `delivery`
 --
 ALTER TABLE `delivery`
   ADD PRIMARY KEY (`del_id`);
+
+--
+-- Indexes for table `detail_bill`
+--
+ALTER TABLE `detail_bill`
+  ADD PRIMARY KEY (`det_id`);
+
+--
+-- Indexes for table `favorite`
+--
+ALTER TABLE `favorite`
+  ADD PRIMARY KEY (`fav_id`);
 
 --
 -- Indexes for table `food`
@@ -146,22 +268,46 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `bill`
+--
+ALTER TABLE `bill`
+  MODIFY `bil_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `customer`
+--
+ALTER TABLE `customer`
+  MODIFY `cus_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `delivery`
 --
 ALTER TABLE `delivery`
-  MODIFY `del_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `del_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `detail_bill`
+--
+ALTER TABLE `detail_bill`
+  MODIFY `det_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `favorite`
+--
+ALTER TABLE `favorite`
+  MODIFY `fav_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `food`
 --
 ALTER TABLE `food`
-  MODIFY `foo_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `foo_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
